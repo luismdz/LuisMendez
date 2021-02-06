@@ -1,0 +1,23 @@
+<mat-toolbar color="primary"
+  class="navbar">
+  <div class="logo">
+    <a routerLink="/"
+      mat-button>
+      <span class="title">Luis Mendez App</span>
+    </a>
+  </div>
+  <div class="nav">
+    <a mat-button
+      [routerLink]="['/usuarios']"
+      routerLinkActive="router-link-active"
+      routerLinkActive="active">
+      Usuarios
+    </a>
+
+    <a mat-button
+      [routerLink]="['/departamentos']"
+      routerLinkActive="active">
+      Departamentos
+    </a>
+  </div>
+</mat-toolbar>

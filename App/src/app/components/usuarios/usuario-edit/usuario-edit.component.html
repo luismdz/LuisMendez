@@ -1,0 +1,101 @@
+<div class="container">
+  <h2>Agregar Usuarios</h2>
+
+  <form autocomplete="off"
+    [formGroup]="usuarioForm"
+    (ngSubmit)="crearUsuario()">
+
+    <mat-form-field appearance="fill"
+      class="w-sm">
+      <mat-label>Cédula</mat-label>
+      <input type="text"
+        matInput
+        maxlength="13"
+        mask="000-0000000-0"
+        placeholder="###-#######-#"
+        formControlName="cedula">
+      <mat-error *ngIf="cedula.invalid">
+        {{ mostrarErroresCedula() }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="two-column">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombres</mat-label>
+        <input type="text"
+          matInput
+          formControlName="nombres">
+        <mat-error *ngIf="nombres.invalid">
+          {{ mostrarErroresNombres() }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Apellidos</mat-label>
+        <input type="text"
+          matInput
+          formControlName="apellidos">
+        <mat-error *ngIf="apellidos.invalid">
+          {{ mostrarErroresApellidos() }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill"
+      class="w-sm">
+      <mat-label>Género</mat-label>
+      <mat-select formControlName="genero">
+        <mat-option [value]="'M'">Masculino</mat-option>
+        <mat-option [value]="'F'">Femenino</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="departamento">
+        <mat-option *ngFor="let dept of departamentos"
+          [value]="dept.codigo">{{ dept.nombre }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="departamento.invalid">
+        {{ mostrarErroresDepartamento() }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Cargo</mat-label>
+      <mat-select formControlName="cargo">
+        <mat-option *ngFor="let cargo of cargos"
+          [value]="cargo">
+          {{cargo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill"
+      class="w-md">
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input matInput
+        formControlName="fechaNacimiento"
+        [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix
+        [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker
+        color="primary"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Supervisor</mat-label>
+      <mat-select formControlName="supervisor">
+        <mat-option [value]="user.id"
+          *ngFor="let user of supervisores">
+          {{ user.nombres }} {{ user.apellidos }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button
+      color="primary"
+      [disabled]="usuarioForm.invalid">Crear</button>
+  </form>
+
+</div>
