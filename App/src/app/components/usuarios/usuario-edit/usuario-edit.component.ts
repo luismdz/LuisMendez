@@ -15,11 +15,12 @@ import Swal from 'sweetalert2';
 export class UsuarioEditComponent implements OnInit {
 
   usuarioForm: FormGroup;
-  originalForm: any;
   usuario: UsuarioDTO;
   departamentos: DepartamentoDTO[];
   usuarios: UsuarioDTO[];
   supervisores: any[];
+
+  // Arreglo para mostrar datos en el select de "Cargos"
   cargos: string[] = [
     "Programador Lider",
     "Programador",
@@ -56,6 +57,7 @@ export class UsuarioEditComponent implements OnInit {
     private router: Router
   ) {
 
+    // Creando el formulario reactivo
     this.usuarioForm = this.fb.group({
       nombres: new FormControl('', 
         [Validators.required, Validators.minLength(2)]),
@@ -70,26 +72,27 @@ export class UsuarioEditComponent implements OnInit {
       departamento: new FormControl('', [Validators.required]),
     });
 
-    this.originalForm = this.usuarioForm;
-
    }
 
   ngOnInit(): void {
 
+    // Obtener listado de departamentos
     this.deptSvc.getAll().subscribe(
       (resp: any) => this.departamentos = resp
     );
-
+    
+    // Obtener listado de usuarios existentes para completar select de "Supervisores"
     this.usuarioSvc.getAll().subscribe(
       (resp: any) => {
         this.usuarios = resp;
 
         this.supervisores = this.usuarios;
-      }
-    )
+      }, err => console.log(err)
+    );
 
   }
 
+  // Mostrar errores en mat-error
   mostrarErroresNombres() {
     if(this.nombres) {
       
@@ -149,16 +152,21 @@ export class UsuarioEditComponent implements OnInit {
 
     return '';
   }
+   // Mostrar errores en mat-error
 
 
+  // Crear usuario llamando el metodo post del servicio usuario
   crearUsuario() {
 
+    // Completando los campos del usuario con la info del form
     this.usuario = this.usuarioForm.value;
+
     const {nombres, apellidos} = this.usuario;
 
+    // llamando al metodo post
     this.usuarioSvc.crear(this.usuario).subscribe(
       resp => {
-        
+        // Resultado existoso
         Swal.fire({
           icon: 'success',
           title: 'Nuevo usuario creado!',
@@ -166,6 +174,7 @@ export class UsuarioEditComponent implements OnInit {
         }).then(() => this.router.navigateByUrl('/usuarios'));
         
       },
+      // Resultado erroneo
       err => {
         Swal.fire({
           icon: 'error',
