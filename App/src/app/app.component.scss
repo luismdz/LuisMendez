@@ -1,4 +1,16 @@
+.wrapper {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-container {
-  margin: 1rem;
-  width: min(1400px, 100%);
+  margin: 1rem auto;
+  width: min(1200px, 100%);
+}
+
+.no-scroll {
+  width: 100%;
+  overflow-y: auto;
 }
