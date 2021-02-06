@@ -42,7 +42,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<List<UsuarioDto>>> GetById(int id)
+        public async Task<ActionResult<UsuarioDto>> GetById(int id)
         {
             var usuario = await dbContext.Usuarios
                 .Where(x => x.Id == id)
@@ -87,7 +87,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<List<UsuarioDto>>> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             var usuario = await dbContext.Usuarios
                 .Where(x => x.Id == id)

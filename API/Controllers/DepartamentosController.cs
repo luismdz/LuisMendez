@@ -38,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<UsuarioDto>> GetById(int id)
+        public async Task<ActionResult<DepartamentoDto>> GetById(int id)
         {
             var departamento = await dbContext.Departamentos
                 .Where(x => x.Id == id)
